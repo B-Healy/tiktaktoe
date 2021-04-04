@@ -1,3 +1,5 @@
+# NOT the tik tok toe for CA just another one i was trying 
+
 #create board 
 #display board 
 #play game function 
