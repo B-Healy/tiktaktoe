@@ -51,7 +51,7 @@ def Check_win():
         return True
     elif (board[1] == board[5] and board[1] == board[9] and board[1] != ' '):
         return True
-    elif (board[7] == board[5] and board[7] == board[3] and board[] != ' '):
+    elif (board[7] == board[5] and board[7] == board[3] and board[7] != ' '):
         return True
     #if none of these conditions above are meet return False    
     else:
@@ -88,3 +88,19 @@ def inseart_letter(letter,position):
         position = int(input("Enter new possition to continue:")) 
         insert_letter(letter,position)
         return   
+
+player = '0'
+AI = 'X'
+#define the players move 
+def player_move():
+    #takes position of player and converts it to an integer
+    position = int(input("Enter the position you want to play 'O':"))
+    insert_letter(player, position)
+    return
+
+#define the AI move 
+def AI_move():
+    #takes position of AI and converts it to an integer
+    position = int(input("Enter the position you want to play 'X':"))
+    insert_letter(AI, position)
+    return
