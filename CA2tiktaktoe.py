@@ -24,3 +24,34 @@ def space_free(position):
     else:
         return False    
         
+#Create a function to insert letter(X or O)   
+def inseart_letter(letter,position):
+    #checks if space is free and if its free put in letter 
+    if space_free(position):
+        board[position] = letter
+        print_board(board)
+
+        #check for tie
+        if(check_tie()):
+            print("A tie!")
+            exit() 
+
+        #check for a win
+        if Check_win():
+            if letter == 'X':
+                #if X wins(the ai) pint message 
+                print("The AI wins!")
+                exit()
+            else:
+                #otherwise human wins print 
+                print("The impossible happened man defets AI.")
+                exit()
+        return                
+
+    #if space isnt free 
+    else:
+        print("Cannot do that sorry :(")
+        #take input and convert to integer 
+        position = int(input("Enter new possition to continue:")) 
+        insert_letter(letter,position)
+        return   
