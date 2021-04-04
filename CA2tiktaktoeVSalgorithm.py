@@ -1,9 +1,3 @@
-# set up board 
-board = {1: ' ', 2: ' ', 3: ' ',
-         4: ' ', 5: ' ', 6: ' ',
-         7: ' ', 8: ' ', 9: ' ',}
-
-
 #print out the board 
 def print_board(board):
     print(board[1]+ '|' + board[2] + '|' + board[3])
@@ -12,13 +6,12 @@ def print_board(board):
     print('-+-+-')
     print(board[7]+ '|' + board[8] + '|' + board[9])
     print("\n")
-    
-print_board(board)
+
 
 #create a function to check if the space is free 
 def space_free(position):
     #if position is empty return True 
-    if(board[position]== " "):
+    if board[position]== " ":
         return True
     #if the position isnt " " return False    
     else:
@@ -28,7 +21,7 @@ def space_free(position):
 def check_tie():
     for key in board.keys():
         #if there is anavalible space return False
-        if board[key] == ' ':
+        if (board[key] == ' '):
             return False
     #otherwise return True        
     return True        
@@ -81,7 +74,7 @@ def Check_which_mark_won(mark):
         return False                    
 
 #Create a function to insert letter(X or O)   
-def insert_letter(letter,position):
+def insert_letter(letter, position):
     #checks if space is free and if its free put in letter 
     if space_free(position):
         board[position] = letter
@@ -108,12 +101,11 @@ def insert_letter(letter,position):
     else:
         print("Cannot do that sorry :(")
         #take input and convert to integer 
-        position = int(input("Enter new possition to continue:")) 
-        insert_letter(letter,position)
+        position = int(input("Enter new possition to continue: ")) 
+        insert_letter(letter, position)
         return   
 
-player = '0'
-AI = 'X'
+
 #define the players move 
 def player_move():
     #takes position of player and converts it to an integer
@@ -124,14 +116,14 @@ def player_move():
 #define the AI move 
 def AI_move():
     #assign best score and best move 
-    best_score = -1000
+    best_score = -800
     best_move = 0
 
     #go over each possible move 
     for key in board.keys():
         #if the board key is equal to an empty space we want to. play that move 
         if(board[key]== ' '):
-            board[key]= bot
+            board[key]= AI
             #determine score 
             score = minimax(board, 0, False)
             #put the board empty again as we just want to get the score 
@@ -141,28 +133,27 @@ def AI_move():
                 best_score = score
                 best_move = key 
 
-    insert_letter(bot,best_move)  
+    insert_letter(AI , best_move)  
     return          
 
 #define the minimax function 
-def minimax(board, depth, is_maximising):
+def minimax(board, depth, is_maximizing):
     #terminal states  
     if (Check_which_mark_won(AI)):
-        return 100
+        return 1
 
     elif (Check_which_mark_won(player)):
-        return -100
+        return -1
 
     elif (check_tie()):
         return 0   
 
     #our AI find the best score untill terminal state is found 
-    if (maximizing):
-        best_score = -1000
-        
+    if (is_maximizing):
+        best_score = -800
         for key in board.keys():
-            if(board[key]== ' '):
-                board[key] = bot
+            if(board[key] == ' '):
+                board[key] = AI
                 score = minimax(board, depth + 1 , False) 
                 board[key] = ' ' 
                 if (score > best_score):
@@ -171,16 +162,30 @@ def minimax(board, depth, is_maximising):
 
     #enemy AI (minimising moment)    
     else:
-         best_score = 800
-        
+        best_score = 800
         for key in board.keys():
-            if(board[key]== ' '):
+            if(board[key] == ' '):
                 board[key] = player
-                score = minimax(board,depth + 1, True) 
+                score = minimax(board, depth + 1, True) 
                 board[key] = ' ' 
                 if (score < best_score):
                     best_score = score
         return best_score
+
+
+board = {1: ' ', 2: ' ', 3: ' ',
+         4: ' ', 5: ' ', 6: ' ',
+         7: ' ', 8: ' ', 9: ' '}
+
+print_board(board)
+print("Computer goes first! Good luck.")
+print("Positions are as follow:")
+print("1, 2, 3 ")
+print("4, 5, 6 ")
+print("7, 8, 9 ")
+print("\n")
+player = 'O'
+AI = 'X'
 
 global first_AI_move
 first_AI_move = True
