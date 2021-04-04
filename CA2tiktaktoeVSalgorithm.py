@@ -131,8 +131,9 @@ def AI_move():
     for key in board.keys():
         #if the board key is equal to an empty space we want to. play that move 
         if(board[key]== ' '):
+            board[key]= bot
             #determine score 
-            score = minimax(board,0,False)
+            score = minimax(board, 0, False)
             #put the board empty again as we just want to get the score 
             board[key] = ' '
             # if the score is higher than the best score we change best score and best move 
@@ -145,26 +146,26 @@ def AI_move():
 
 #define the minimax function 
 def minimax(board, depth, is_maximising):
-    #terminal states 
-    #if 
-    if Check_which_mark_won(AI):
+    #terminal states  
+    if (Check_which_mark_won(AI)):
         return 100
 
-    elif Check_which_mark_won(player):
+    elif (Check_which_mark_won(player)):
         return -100
 
-    elif check_tie():
+    elif (check_tie()):
         return 0   
 
     #our AI find the best score untill terminal state is found 
-    if maximizing:
+    if (maximizing):
         best_score = -1000
         
         for key in board.keys():
             if(board[key]== ' '):
-                score = minimax(board, 0 ,False) 
+                board[key] = bot
+                score = minimax(board, depth + 1 , False) 
                 board[key] = ' ' 
-                if(score > best_score):
+                if (score > best_score):
                     best_score = score
         return best_score
 
@@ -174,12 +175,15 @@ def minimax(board, depth, is_maximising):
         
         for key in board.keys():
             if(board[key]== ' '):
-                score = minimax(board, 0,True) 
+                board[key] = player
+                score = minimax(board,depth + 1, True) 
                 board[key] = ' ' 
-                if(score < best_score):
+                if (score < best_score):
                     best_score = score
         return best_score
 
+global first_AI_move
+first_AI_move = True
 
 # game to play AI first then player
 while not Check_win():
