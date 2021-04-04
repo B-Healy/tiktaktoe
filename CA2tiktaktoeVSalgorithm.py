@@ -100,10 +100,27 @@ def player_move():
 
 #define the AI move 
 def AI_move():
-    #takes position of AI and converts it to an integer
-    position = int(input("Enter the position you want to play 'X':"))
-    insert_letter(AI, position)
-    return
+    #assign best score and best move 
+    best_score = -1000
+    best_move = 0
+
+    #go over each possible move 
+    for key in board.key():
+        #if the board key is equal to an empty space we want to. play that move 
+        if(board[key]== ' '):
+            #determine score 
+            score = minimax(board,0,False)
+            #put the board empty again as we just want to get the score 
+            board[key] = ' '
+            # if the score is higher than the best score we change best score and best move 
+            if(score > best_score):
+                best_score = score
+                best_move = key 
+
+    insert_letter(bot,best_move)  
+    return          
+
+
 
 
 # game to play AI first then player
