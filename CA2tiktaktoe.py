@@ -23,7 +23,40 @@ def space_free(position):
     #if the position isnt " " return False    
     else:
         return False    
-        
+
+# define check for a tie 
+def check_tie():
+    for key in board.keys():
+        #if there is anavalible space return False
+        if board[key] == ' ':
+            return False
+    #otherwise return True        
+    return True        
+
+
+#define check for a win
+def Check_win():
+    #all conditions for win return true 
+    if (board[1] == board[2] and board[1] == board[3] and board[1] != ' '):
+        return True
+    elif (board[4] == board[5] and board[4] == board[6] and board[4] != ' '):
+        return True    
+    elif (board[7] == board[8] and board[7] == board[9] and board[7] != ' '):
+        return True
+    elif (board[1] == board[4] and board[1] == board[7] and board[1] != ' '):
+        return True
+    elif (board[2] == board[5] and board[2] == board[8] and board[2] != ' '):
+        return True
+    elif (board[3] == board[6] and board[3] == board[9] and board[3] != ' '):
+        return True
+    elif (board[1] == board[5] and board[1] == board[9] and board[1] != ' '):
+        return True
+    elif (board[7] == board[5] and board[7] == board[3] and board[] != ' '):
+        return True
+    #if none of these conditions above are meet return False    
+    else:
+        return False            
+
 #Create a function to insert letter(X or O)   
 def inseart_letter(letter,position):
     #checks if space is free and if its free put in letter 
