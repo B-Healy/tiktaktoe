@@ -14,3 +14,13 @@ def print_board(board):
     print("\n")
     
 print_board(board)
+
+#create a function to check if the space is free 
+def space_free(position):
+    #if position is empty return True 
+    if(board[position]== " "):
+        return True
+    #if the position isnt " " return False    
+    else:
+        return False    
+        
