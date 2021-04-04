@@ -57,6 +57,29 @@ def Check_win():
     else:
         return False            
 
+#define check which mark won
+def Check_which_mark_won(mark):
+    # all the marks which win 
+    if (board[1] == board[2] and board[1] == board[3] and board[1] == mark):
+        return True
+    elif (board[4] == board[5] and board[4] == board[6] and board[4] == mark):
+        return True    
+    elif (board[7] == board[8] and board[7] == board[9] and board[7] == mark):
+        return True
+    elif (board[1] == board[4] and board[1] == board[7] and board[1] == mark):
+        return True
+    elif (board[2] == board[5] and board[2] == board[8] and board[2] == mark):
+        return True
+    elif (board[3] == board[6] and board[3] == board[9] and board[3] == mark):
+        return True
+    elif (board[1] == board[5] and board[1] == board[9] and board[1] == mark):
+        return True
+    elif (board[7] == board[5] and board[7] == board[3] and board[7] == mark):
+        return True
+    #if none of these conditions above are meet return False    
+    else:
+        return False                    
+
 #Create a function to insert letter(X or O)   
 def insert_letter(letter,position):
     #checks if space is free and if its free put in letter 
@@ -105,7 +128,7 @@ def AI_move():
     best_move = 0
 
     #go over each possible move 
-    for key in board.key():
+    for key in board.keys():
         #if the board key is equal to an empty space we want to. play that move 
         if(board[key]== ' '):
             #determine score 
@@ -120,7 +143,42 @@ def AI_move():
     insert_letter(bot,best_move)  
     return          
 
+#define the minimax function 
+def minimax(board, depth, is_maximising):
+    #terminal states 
+    #if 
+    if Check_which_mark_won(AI):
+        return 100
 
+    elif Check_which_mark_won(player):
+        return -100
+
+    elif check_tie():
+        return 0   
+
+    #our AI find the best score untill terminal state is found 
+    if maximizing:
+        best_score = -1000
+        
+        for key in board.keys():
+            if(board[key]== ' '):
+                score = minimax(board, 0 ,False) 
+                board[key] = ' ' 
+                if(score > best_score):
+                    best_score = score
+        return best_score
+
+    #enemy AI (minimising moment)    
+    else:
+         best_score = 800
+        
+        for key in board.keys():
+            if(board[key]== ' '):
+                score = minimax(board, 0,True) 
+                board[key] = ' ' 
+                if(score < best_score):
+                    best_score = score
+        return best_score
 
 
 # game to play AI first then player
