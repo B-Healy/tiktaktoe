@@ -104,3 +104,8 @@ def AI_move():
     position = int(input("Enter the position you want to play 'X':"))
     insert_letter(AI, position)
     return
+
+# game to play AI first then player
+while not Check_win():
+    AI_move()
+    player_move()
